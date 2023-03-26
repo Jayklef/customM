@@ -47,37 +47,37 @@ public class ClientServiceImpl implements ClientService{
 
         Client clientInDb = clientRepository.findById(id).get();
         if (Objects.nonNull(clientInDb.getFirstname()) &&
-        "".equalsIgnoreCase(clientInDb.getFirstname())){
+        !"".equalsIgnoreCase(clientDto.getFirstname())){
             clientInDb.setFirstname(clientDto.getFirstname());
         }
 
         if (Objects.nonNull(clientDto.getLastname()) &&
-        "".equalsIgnoreCase(clientDto.getLastname())){
+        !"".equalsIgnoreCase(clientDto.getLastname())){
             clientInDb.setLastname(clientDto.getLastname());
         }
 
         if (Objects.nonNull(clientDto.getEmail()) &&
-        "".equalsIgnoreCase(clientDto.getEmail())){
+        !"".equalsIgnoreCase(clientDto.getEmail())){
             clientInDb.setEmail(clientDto.getEmail());
         }
 
         if (Objects.nonNull(clientDto.getBirthDate()) &&
-        "".equalsIgnoreCase(clientDto.getBirthDate().toString())){
+        !"".equalsIgnoreCase(clientDto.getBirthDate().toString())){
             clientInDb.setBirthDate(clientDto.getBirthDate());
         }
 
-        if (Objects.nonNull(clientDto.getAddress()) &&
-                "".equalsIgnoreCase(clientDto.getAddress())){
+        if (Objects.nonNull(clientDto.getAddress())&&
+        !"".equalsIgnoreCase(clientDto.getAddress())){
             clientInDb.setAddress(clientDto.getAddress());
         }
 
         if (Objects.nonNull(clientDto.getNin()) &&
-        "".equalsIgnoreCase(clientDto.getNin())){
+        !"".equalsIgnoreCase(clientDto.getNin())){
             clientInDb.setNin(clientDto.getNin());
         }
 
         if (Objects.nonNull(clientDto.getBvn()) &&
-        "".equalsIgnoreCase(clientDto.getBvn())){
+        !"".equalsIgnoreCase(clientDto.getBvn())){
             clientInDb.setBvn(clientDto.getBvn());
         }
 
