@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -40,5 +41,28 @@ public class ItemServiceImpl implements ItemService{
     public void deleteItem(Long id) {
         Item item = getItem(id);
         itemRepository.deleteById(item.getId());
+    }
+
+    @Override
+    public Item updateItem(Long id, ItemDto itemDto) {
+
+        Item itemInDb = itemRepository.findById(id).get();
+
+        if (Objects.nonNull(itemDto.getName()) &&
+        !"".equalsIgnoreCase(itemDto.getName())){
+            itemInDb.setName(itemDto.getName());
+        }
+
+        if (Objects.nonNull(itemDto.getQuantity()) &&
+        !"".equalsIgnoreCase(itemDto.getQuantity().toString())){
+            itemInDb.setQuantity(itemDto.getQuantity());
+        }
+
+        if (Objects.nonNull(itemDto.getPrice()) &&
+        !"".equalsIgnoreCase(itemDto.getPrice().toString())){
+            itemInDb.setPrice(itemDto.getPrice());
+        }
+
+        return itemRepository.save(itemInDb);
     }
 }

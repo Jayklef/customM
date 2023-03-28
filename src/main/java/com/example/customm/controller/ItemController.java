@@ -28,6 +28,13 @@ public class ItemController {
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Item> updateItem(@PathVariable("id") Long id,
+                                           @RequestBody ItemDto itemDto){
+        Item itemToUpdate = itemService.updateItem(id, itemDto);
+        return new ResponseEntity<>(itemToUpdate, HttpStatus.OK);
+    }
+
     @GetMapping("/item/{id}")
     public ResponseEntity<Item> getItem(@PathVariable("id") Long id){
         Item item = itemService.getItem(id);
