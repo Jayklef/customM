@@ -13,4 +13,6 @@ public interface PaymentPlanService {
     PaymentPlan getPlan(Long id);
 
     void delete(Long id);
+
+    PaymentPlan updatePlan(Long id, PaymentPlanDto paymentPlanDto);
 }

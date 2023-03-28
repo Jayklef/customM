@@ -35,6 +35,13 @@ public class PaymentPlanController {
         return new ResponseEntity<>(paymentPlan, HttpStatus.FOUND);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<PaymentPlan> updatePlan(@PathVariable("id") Long id,
+                                                  @RequestBody PaymentPlanDto paymentPlanDto){
+        PaymentPlan updatedPlan = paymentPlanService.updatePlan(id, paymentPlanDto);
+        return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deletePlan(@PathVariable("id") Long id){
         paymentPlanService.delete(id);

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -42,5 +43,27 @@ public class PaymentPlanServiceImpl implements PaymentPlanService{
     public void delete(Long id) {
         PaymentPlan paymentPlan = getPlan(id);
         paymentPlanRepository.deleteById(paymentPlan.getId());
+    }
+
+    @Override
+    public PaymentPlan updatePlan(Long id, PaymentPlanDto paymentPlanDto) {
+        PaymentPlan planInDb = paymentPlanRepository.findById(id).get();
+
+        if (Objects.nonNull(paymentPlanDto.getName()) &&
+        !"".equalsIgnoreCase(paymentPlanDto.getName())){
+            planInDb.setName(paymentPlanDto.getName());
+        }
+
+        if (Objects.nonNull(paymentPlanDto.getDuration()) &&
+        !"".equalsIgnoreCase(paymentPlanDto.getDuration())){
+            planInDb.setDuration(paymentPlanDto.getDuration());
+        }
+
+        if (Objects.nonNull(paymentPlanDto.getInterest()) &&
+        !"".equalsIgnoreCase(paymentPlanDto.getInterest().toString())){
+            planInDb.setInterest(paymentPlanDto.getInterest());
+        }
+
+        return paymentPlanRepository.save(planInDb);
     }
 }
