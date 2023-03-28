@@ -19,5 +19,5 @@ public class PaymentPlan {
     private Long id;
     private String name;
     private String duration;
-    private float interest;
+    private Float interest;
 }
