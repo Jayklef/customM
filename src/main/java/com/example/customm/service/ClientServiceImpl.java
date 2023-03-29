@@ -2,6 +2,7 @@ package com.example.customm.service;
 
 import com.example.customm.dto.ClientDto;
 import com.example.customm.entity.Client;
+import com.example.customm.exception.ResourceNotFoundException;
 import com.example.customm.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class ClientServiceImpl implements ClientService{
+public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+
     @Override
     public Client saveClient(ClientDto clientDto) {
 
@@ -39,7 +41,12 @@ public class ClientServiceImpl implements ClientService{
     public Client findClient(Long id) {
 
         Optional<Client> client = clientRepository.findById(id);
-        return client.get();
+
+        if (client.isPresent()) {
+            return client.get();
+        }
+
+        throw new ResourceNotFoundException("Client with id " + id + " not found");
     }
 
     @Override
