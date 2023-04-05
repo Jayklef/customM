@@ -1,12 +1,17 @@
 package com.example.customm.exception;
 
 import com.example.customm.entity.ErrorResponse;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.resource.HttpResource;
 
 import java.net.URI;
 import java.util.Date;
@@ -19,7 +24,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                    WebRequest request){
         ErrorResponse response = new ErrorResponse();
         response.setStatusCode(HttpStatus.NOT_FOUND.value());
-        response.setError(exception.getMessage());
+        response.setError(HttpStatus.NOT_FOUND.name());
         response.setMessage(exception.getMessage());
         response.setTimeStamp(new Date());
         response.setPath(response.getPath());
@@ -32,11 +37,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                     WebRequest request){
         ErrorResponse response = new ErrorResponse();
         response.setStatusCode(HttpStatus.CONTINUE.value());
-        response.setError(exception.getMessage());
+        response.setError(HttpStatus.CONTINUE.name());
         response.setMessage(exception.getMessage());
         response.setTimeStamp(new Date());
-        response.setPath(request.getContextPath());
 
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
+    
 }
