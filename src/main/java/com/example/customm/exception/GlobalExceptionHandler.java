@@ -51,6 +51,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
+    public ResponseEntity<ErrorResponse> MethodArgumentMismatchException(MethodArgumentNotValidException exception,
+                                                                         WebRequest request){
+        ErrorResponse response = new ErrorResponse();
+        response.setStatusCode(response.getStatusCode());
+        response.setError(HttpStatus.BAD_REQUEST.name());
+        response.setMessage(response.getMessage());
+        response.setTimeStamp(new Date());
+        response.setPath(response.getPath());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
