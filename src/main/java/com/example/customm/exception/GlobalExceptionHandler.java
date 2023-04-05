@@ -51,6 +51,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> MethodArgumentMismatchException(MethodArgumentNotValidException exception,
                                                                          WebRequest request){
         ErrorResponse response = new ErrorResponse();
@@ -61,6 +62,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         response.setPath(response.getPath());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> GeneralExceptionHandler(Exception ex,
+                                                                 WebRequest request){
+        ErrorResponse response = new ErrorResponse();
+        response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setError(HttpStatus.INTERNAL_SERVER_ERROR.name());
+        response.setMessage(ex.getMessage());
+        response.setTimeStamp(new Date());
+        response.setPath(response.getPath());
+
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
