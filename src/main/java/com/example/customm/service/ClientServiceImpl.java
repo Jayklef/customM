@@ -2,6 +2,7 @@ package com.example.customm.service;
 
 import com.example.customm.dto.ClientDto;
 import com.example.customm.entity.Client;
+import com.example.customm.exception.ItemAlreadyExistsException;
 import com.example.customm.exception.ResourceNotFoundException;
 import com.example.customm.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client saveClient(ClientDto clientDto) {
+
+        if (clientRepository.existsByEmail(clientDto.getEmail())){
+            throw new ItemAlreadyExistsException("Client with email " + clientDto.getEmail() + "already exists");
+        }
+
 
         Client newClient = new Client();
         newClient.setFirstname(clientDto.getFirstname());
